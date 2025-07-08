@@ -73,7 +73,7 @@ RUN groupadd -r botuser && useradd -r -g botuser -G audio,video botuser \
     && chown -R botuser:botuser /app
 
 # Set capabilities for OpenVPN
-RUN setcap cap_net_admin+ep /usr/sbin/openvpn
+# RUN setcap cap_net_admin+ep /usr/sbin/openvpn
 
 EXPOSE 3000
 
