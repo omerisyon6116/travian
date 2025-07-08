@@ -1,0 +1,33 @@
+FROM node:18-slim
+
+# Install minimal dependencies for dashboard
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application code
+COPY web/ ./web/
+COPY src/ ./src/
+COPY docker/dashboard-standalone.js ./
+
+# Create necessary directories
+RUN mkdir -p /app/logs
+
+# Create unprivileged user
+RUN groupadd -r dashuser && useradd -r -g dashuser dashuser \
+    && chown -R dashuser:dashuser /app
+
+EXPOSE 5000
+
+USER dashuser
+
+CMD ["node", "dashboard-standalone.js"]

@@ -1,0 +1,176 @@
+version: '3.8'
+
+services:
+  # Bot Container 1 - Social Media Explorer
+  bot-001:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: social-media-bot
+    environment:
+      - BOT_ID=bot-001
+      - VPN_CONFIG=/app/configs/vpn/config-001.ovpn
+      - VPN_AUTH_FILE=/app/configs/vpn/auth-001.txt
+      - BOT_NAME=Social Media Explorer
+      - SCRIPT_DELAY=45000
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./scripts:/app/scripts:ro
+      - ./logs:/app/logs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    networks:
+      - bot-network
+    depends_on:
+      - dashboard
+
+  # Bot Container 2 - E-commerce Shopper  
+  bot-002:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: ecommerce-bot
+    environment:
+      - BOT_ID=bot-002
+      - VPN_CONFIG=/app/configs/vpn/config-002.ovpn
+      - VPN_AUTH_FILE=/app/configs/vpn/auth-002.txt
+      - BOT_NAME=E-commerce Shopper
+      - SCRIPT_DELAY=60000
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./scripts:/app/scripts:ro
+      - ./logs:/app/logs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    networks:
+      - bot-network
+    depends_on:
+      - dashboard
+
+  # Bot Container 3 - News Reader
+  bot-003:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: news-bot
+    environment:
+      - BOT_ID=bot-003
+      - VPN_CONFIG=/app/configs/vpn/config-003.ovpn
+      - VPN_AUTH_FILE=/app/configs/vpn/auth-003.txt
+      - BOT_NAME=News Reader
+      - SCRIPT_DELAY=30000
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./scripts:/app/scripts:ro
+      - ./logs:/app/logs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    networks:
+      - bot-network
+    depends_on:
+      - dashboard
+
+  # Bot Container 4 - Research Assistant
+  bot-004:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: research-bot
+    environment:
+      - BOT_ID=bot-004
+      - VPN_CONFIG=/app/configs/vpn/config-001.ovpn
+      - VPN_AUTH_FILE=/app/configs/vpn/auth-001.txt
+      - BOT_NAME=Research Assistant
+      - SCRIPT_DELAY=90000
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./scripts:/app/scripts:ro
+      - ./logs:/app/logs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    networks:
+      - bot-network
+    depends_on:
+      - dashboard
+
+  # Bot Container 5 - Entertainment Seeker
+  bot-005:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: entertainment-bot
+    environment:
+      - BOT_ID=bot-005
+      - VPN_CONFIG=/app/configs/vpn/config-002.ovpn
+      - VPN_AUTH_FILE=/app/configs/vpn/auth-002.txt
+      - BOT_NAME=Entertainment Seeker
+      - SCRIPT_DELAY=75000
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./scripts:/app/scripts:ro
+      - ./logs:/app/logs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    networks:
+      - bot-network
+    depends_on:
+      - dashboard
+
+  # Dashboard Service
+  dashboard:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: bot-dashboard
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs:ro
+      - ./configs:/app/configs:ro
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  logs:
+  configs:

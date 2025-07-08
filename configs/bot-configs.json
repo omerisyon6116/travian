@@ -1,0 +1,84 @@
+{
+  "bots": [
+    {
+      "id": "bot-001",
+      "name": "Social Media Explorer",
+      "vpnConfig": {
+        "configFile": "configs/vpn/config-001.ovpn",
+        "server": "us-east-1.vpn.example.com",
+        "expectedIP": "192.168.1.101"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      "viewport": { "width": 1366, "height": 768 },
+      "scriptDelay": 45000,
+      "scripts": [
+        { "name": "social-media", "file": "user-behaviors/social-media.js", "weight": 3 },
+        { "name": "entertainment", "file": "user-behaviors/entertainment.js", "weight": 2 }
+      ]
+    },
+    {
+      "id": "bot-002",
+      "name": "E-commerce Shopper",
+      "vpnConfig": {
+        "configFile": "configs/vpn/config-002.ovpn",
+        "server": "eu-west-1.vpn.example.com",
+        "expectedIP": "192.168.1.102"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      "viewport": { "width": 1440, "height": 900 },
+      "scriptDelay": 60000,
+      "scripts": [
+        { "name": "ecommerce", "file": "user-behaviors/ecommerce.js", "weight": 4 },
+        { "name": "research", "file": "user-behaviors/research.js", "weight": 1 }
+      ]
+    },
+    {
+      "id": "bot-003",
+      "name": "News Reader",
+      "vpnConfig": {
+        "configFile": "configs/vpn/config-003.ovpn",
+        "server": "asia-southeast-1.vpn.example.com",
+        "expectedIP": "192.168.1.103"
+      },
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      "viewport": { "width": 1920, "height": 1080 },
+      "scriptDelay": 30000,
+      "scripts": [
+        { "name": "news-browsing", "file": "user-behaviors/news-browsing.js", "weight": 5 },
+        { "name": "research", "file": "user-behaviors/research.js", "weight": 2 }
+      ]
+    },
+    {
+      "id": "bot-004",
+      "name": "Research Assistant",
+      "vpnConfig": {
+        "configFile": "configs/vpn/config-001.ovpn",
+        "server": "us-west-2.vpn.example.com",
+        "expectedIP": "192.168.1.104"
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+      "viewport": { "width": 1600, "height": 900 },
+      "scriptDelay": 90000,
+      "scripts": [
+        { "name": "research", "file": "user-behaviors/research.js", "weight": 4 },
+        { "name": "news-browsing", "file": "user-behaviors/news-browsing.js", "weight": 1 }
+      ]
+    },
+    {
+      "id": "bot-005",
+      "name": "Entertainment Seeker",
+      "vpnConfig": {
+        "configFile": "configs/vpn/config-002.ovpn",
+        "server": "ca-central-1.vpn.example.com",
+        "expectedIP": "192.168.1.105"
+      },
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
+      "viewport": { "width": 768, "height": 1024 },
+      "scriptDelay": 75000,
+      "scripts": [
+        { "name": "entertainment", "file": "user-behaviors/entertainment.js", "weight": 5 },
+        { "name": "social-media", "file": "user-behaviors/social-media.js", "weight": 2 }
+      ]
+    }
+  ]
+}
